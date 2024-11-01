@@ -16,8 +16,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class LoginController {
-	@Autowired
-	private StaffMapper staffMapper;
+	@Autowired  StaffMapper staffMapper; //정보 은닉하기위한 private를 생략 디폴트로 이유는 조금이라도 덜코딩하기위해서
+	
+	@GetMapping("/on/logout")
+	public String logout(HttpSession session) { //HttpSession session 좋은 습관은 아님
+		session.invalidate();
+		log.debug("로그아웃 성공");
+		return "redirect:/off/login";
+	}
+	
+	
+	
 	
 	// 로그인 폼
 	@GetMapping("/off/login")
