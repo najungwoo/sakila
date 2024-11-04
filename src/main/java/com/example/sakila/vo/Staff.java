@@ -3,9 +3,7 @@ package com.example.sakila.vo;
 import lombok.Data;
 
 @Data
-
 public class Staff {
-	
 	private int staffId; // PK
 	private String firstName;
 	private String lastName;
