@@ -7,33 +7,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.sakila.mapper.StaffMapper;
+import com.example.sakila.service.StaffService;
 import com.example.sakila.vo.Staff;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-@Controller
+@Slf4j 
+@Controller 
 public class LoginController {
-	@Autowired  StaffMapper staffMapper; //정보 은닉하기위한 private를 생략 디폴트로 이유는 조금이라도 덜코딩하기위해서
+	@Autowired StaffService staffService;
 	
 	@GetMapping("/on/logout")
-	public String logout(HttpSession session) { //HttpSession session 좋은 습관은 아님
+	public String logout(HttpSession session) {
 		session.invalidate();
 		log.debug("로그아웃 성공");
 		return "redirect:/off/login";
 	}
 	
-	
-	
-	
 	// 로그인 폼
 	@GetMapping("/off/login")
 	public String login() {
-		
 		log.debug("/off/login 실행됨.");
-		
 		return "off/login";
 	}
 	
@@ -49,7 +44,7 @@ public class LoginController {
 			paramStaff.setStaffId(staffId); 
 			paramStaff.setPassword(password);
 			
-			Staff loginStaff = staffMapper.login(paramStaff);
+			Staff loginStaff = staffService.login(paramStaff);
 			if(loginStaff == null) {
 				log.debug("로그인 실패");
 				model.addAttribute("msg", "로그인실패");
