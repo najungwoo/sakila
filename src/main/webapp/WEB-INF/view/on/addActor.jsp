@@ -21,7 +21,10 @@
 		<div class="col-sm-10">
 			<!-- main content -->
 			<h1>ADD ACTOR</h1>
+			<form id="formActor" method="post" action="${pageContext.request.contextPath}/on/addActor"
+				enctype="multipart/form-data">
 			<table class="table">
+		
 				<tr>
 					<td>firstName</td>
 					<td><input type="text" name="firstName"></td>
@@ -40,11 +43,24 @@
 					</td>
 				</tr>
 			</table>
+			
 			<button type="button" id="btnAddActor">배우 추가</button>
+			</form>
 		</div>
 	</div>
 </body>
 <script>
+$('#btnAddActor').click(function() {
+    // last 값 공백인지 확인
+    if($('#firstname').val() == '' || $('#lastName').val() == '') {
+       alert('이름을 입력하세요');
+    } else if($('.actorFile').length > 0 && $('.actorFile').last().val() == '') {
+       alert('첨부되지 않은 파일이 있습니다');   
+    } else {
+       $('#formActor').submit();
+    }
+ });
+ 
 	$('#btnAddFile').click(function() {
 		/* 자바스크립트 API 사용
 		let arr = $('.actorFile');
