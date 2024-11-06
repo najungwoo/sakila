@@ -26,16 +26,26 @@ public class ActorService {
 	@Autowired ActorMapper actorMapper;
 	@Autowired ActorFileMapper actorFileMapper;
 	
+	// /on/filmOne
+		public List<Actor> getActorListByFilm(int filmId) {
+			return actorMapper.selectActorListByFilm(filmId);
+		}
+		
+		// /on/actorOne
+		public Actor getActorOne(int actorId) {
+			return actorMapper.selectActorOne(actorId);
+		}
+		
+	
 	public List<Actor> getActorList(int currentPage, int rowPerPage, String searchWord) {
-		   int beginRow = (currentPage - 1) * rowPerPage;
-
-	        Map<String, Object> paramMap = new HashMap<>();
-	        paramMap.put("beginRow", beginRow);
-	        paramMap.put("rowPerPage", rowPerPage);
-	        paramMap.put("searchWord", searchWord);
-
-	        return actorMapper.selectActorList(paramMap);
-	    }
+		Map<String, Object> paramMap = new HashMap<>();
+		int beginRow = (currentPage - 1) * rowPerPage;
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
+		
+		return actorMapper.selectActorList(paramMap);
+	}
 
 	    public int getTotalCount(String searchWord) {
 	        Map<String, Object> paramMap = new HashMap<>();
@@ -86,4 +96,6 @@ public class ActorService {
 			 }
 		 }
 	}
-}
+
+
+	}

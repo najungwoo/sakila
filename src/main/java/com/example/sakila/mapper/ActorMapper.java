@@ -9,7 +9,17 @@ import com.example.sakila.vo.Actor;
 
 @Mapper
 public interface ActorMapper {
-	List<Actor> selectActorList(Map<String, Object>map);
-    int selectActorCount(Map<String, Object> map); // 전체 배우 수 조회 메서드
+	
+	// /on/filmOne
+	List<Actor> selectActorListByFilm(int filmId); 
+	
+	// /on/actorOne
+	Actor selectActorOne(int actorId);
+	
+	List<Actor> selectActorList(Map<String, Object> map);
+	
 	int insertActor(Actor actor);
+
+    int selectActorCount(Map<String, Object> map); // 전체 배우 수 조회 메서드
+
 }
