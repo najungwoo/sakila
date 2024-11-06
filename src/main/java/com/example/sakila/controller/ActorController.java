@@ -23,17 +23,26 @@ public class ActorController {
 	
 	
 	@GetMapping("/on/actorList")
-	public String actorList(Model model
-							, @RequestParam(defaultValue = "1") int currentPage
-							, @RequestParam(defaultValue = "10") int rowPerPage
-							, @RequestParam(required = false) String searchWord) {
-		log.debug("searchWord: "+ searchWord);
-		
-		// int lastPage = actorService.getTotalCount(rowPerPage, searchWord);
-		List<Actor> actorList = actorService.getActorList(currentPage, rowPerPage, searchWord);
-		model.addAttribute("actorList", actorList);
-		
-		return "on/actorList";
+	public String actorList(Model model,
+	                        @RequestParam(defaultValue = "1") int currentPage,
+	                        @RequestParam(defaultValue = "10") int rowPerPage,
+	                        @RequestParam(required = false) String searchWord) {
+	    log.debug("searchWord: " + searchWord);
+
+	    // 전체 배우 수를 구해 총 페이지 수 계산
+	    int totalActors = actorService.getTotalCount(searchWord);
+	    int lastPage = (int) Math.ceil((double) totalActors / rowPerPage);
+	    
+	    // 해당 페이지의 배우 목록 가져오기
+	    List<Actor> actorList = actorService.getActorList(currentPage, rowPerPage, searchWord);
+	    
+	    // JSP에서 사용하기 위해 모델에 추가
+	    model.addAttribute("actorList", actorList);
+	    model.addAttribute("currentPage", currentPage);
+	    model.addAttribute("lastPage", lastPage);
+	    model.addAttribute("searchWord", searchWord);
+
+	    return "on/actorList";
 	}
 	
 	@PostMapping("/on/addActor")

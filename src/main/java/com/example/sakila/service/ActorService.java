@@ -27,14 +27,21 @@ public class ActorService {
 	@Autowired ActorFileMapper actorFileMapper;
 	
 	public List<Actor> getActorList(int currentPage, int rowPerPage, String searchWord) {
-		Map<String, Object> paramMap = new HashMap<>();
-		int beginRow = (currentPage - 1) * rowPerPage;
-		paramMap.put("beginRow", beginRow);
-		paramMap.put("rowPerPage", rowPerPage);
-		paramMap.put("searchWord", searchWord);
-		
-		return actorMapper.selectActorList(paramMap);
-	}
+		   int beginRow = (currentPage - 1) * rowPerPage;
+
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("beginRow", beginRow);
+	        paramMap.put("rowPerPage", rowPerPage);
+	        paramMap.put("searchWord", searchWord);
+
+	        return actorMapper.selectActorList(paramMap);
+	    }
+
+	    public int getTotalCount(String searchWord) {
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("searchWord", searchWord);
+	        return actorMapper.selectActorCount(paramMap);
+	    }
 	
 	
 	public void addActor(ActorForm actorForm, String path) {
