@@ -29,6 +29,7 @@ public class StaffController {
 	@Autowired StoreService storeService;
 	@Autowired AddressService addressService;
 	
+	
 	// active 수정
 	@GetMapping("/on/modifyStaffActive")
 	public String modifyStaffActive(Staff staff) {

@@ -15,6 +15,7 @@ public class OffInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
+		
 		log.debug(request.getRequestURL().toString() +"요청 Interceptor");
 		
 		// 로그인이 되어 있다면

@@ -14,6 +14,7 @@
 		WHERE fa.film_id = #{filmId}
 	</select>
 	
+	
 	<select id="selectActorOne"
 			parameterType="int"
 			resultType="com.example.sakila.vo.Actor">

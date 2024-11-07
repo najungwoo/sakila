@@ -18,6 +18,7 @@
 			<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
 		</div>
 		
+		
 		<div class="col-sm-10">
 			<!-- main content -->
 			<h1>&#128517; ADD FILM</h1>
