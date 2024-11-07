@@ -25,6 +25,7 @@
 			<form id="formAddFilm" method="post" action="${pageContext.request.contextPath}/on/addFilm">
 				<table class="table table-striped table-bordered" style="width: 80%">
 					<tr>
+					
 						<td colspan="2" class="fw-bold">필수 항목</td>
 					</tr>
 					
