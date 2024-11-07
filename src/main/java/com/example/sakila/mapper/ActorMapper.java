@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.sakila.vo.Actor;
 
 
+
 @Mapper
 public interface ActorMapper {
 	
