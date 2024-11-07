@@ -8,9 +8,8 @@ import lombok.Data;
 
 @Data
 public class ActorForm {
+	private int actorId;
 	private String firstName;
 	private String lastName;
 	private List<MultipartFile> actorFile;
-	
-	
 }

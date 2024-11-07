@@ -127,7 +127,7 @@
                     <ul class="pagination">
                         <c:forEach var="i" begin="1" end="${lastPage}">
                             <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                <a class="page-link" href="${pageContext.request.contextPath}/on/actorList?currentPage=${i}&searchWord=${searchWord}">
+          						  <a class="page-link" href="${pageContext.request.contextPath}/on/actorList?currentPage=${i}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">
                                     ${i}
                                 </a>
                             </li>
@@ -138,6 +138,7 @@
                 <!-- 검색 폼 -->
                 <form id="formSearch" action="${pageContext.request.contextPath}/on/actorList" method="get">
                     <input type="text" name="searchWord" id="searchWord" value="${searchWord}" placeholder="Search by name">
+               
                     <button id="btnSearch">Search</button>
                 </form>
             </div>
