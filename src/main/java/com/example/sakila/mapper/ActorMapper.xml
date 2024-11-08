@@ -64,17 +64,6 @@
         LIMIT #{beginRow}, #{rowPerPage}
     </select>
     
-    <!-- 전체 배우 수를 반환하는 selectActorCount 쿼리 추가 -->
-    <select id="selectActorCount" parameterType="String" resultType="int">
-        SELECT COUNT(*) 
-        FROM actor
-        <where>
-            <if test="searchWord != null">
-                first_name LIKE CONCAT('%', #{searchWord}, '%')
-                OR last_name LIKE CONCAT('%', #{searchWord}, '%')
-            </if>
-        </where>
-    </select>
 
     <insert id="insertActor" parameterType="com.example.sakila.vo.Actor">
         <selectKey resultType="int" keyProperty="actorId" order="AFTER">
@@ -87,4 +76,16 @@
             #{firstName}, #{lastName}
         )
     </insert>
+        <!-- 전체 배우 수를 반환하는 selectActorCount 쿼리 추가 -->
+    <select id="selectActorCount" parameterType="String" resultType="int">
+        SELECT COUNT(*) 
+        FROM actor
+        <where>
+            <if test="searchWord != null">
+                first_name LIKE CONCAT('%', #{searchWord}, '%')
+                OR last_name LIKE CONCAT('%', #{searchWord}, '%')
+            </if>
+        </where>
+    </select>
+    
 </mapper>
