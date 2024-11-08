@@ -16,16 +16,22 @@ import com.example.sakila.vo.FilmForm;
 public class FilmService {
 	@Autowired FilmMapper filmMapper;
 	
+	public List<Film> getFilmListByTitle(String searchWord) {
+		return filmMapper.selectFilmListByTitle(searchWord);
+	}
+	
 	public int addFilm(FilmForm filmForm) {
 		Film film = new Film();
-		//FilmForm --> File
-		film.setTitle(filmForm.getTitle());		
-		//film.setDescription(filmForm.getDescription().equals("") ? null : filmForm.getDescription());
+		// FilmForm --> Film
+		film.setTitle(filmForm.getTitle());
+		
 		if(filmForm.getDescription().equals("")) {
-			film.setDescription(null);
-		}else {
+			 film.setDescription(null);
+		} else {
 			film.setDescription(filmForm.getDescription());
 		}
+		// 삼항연산자 사용하면
+		// film.setDescription(filmForm.getDescription().equals("") ? null : filmForm.getDescription());
 		
 		film.setReleaseYear(filmForm.getReleaseYear());
 		film.setLanguageId(filmForm.getLanguageId());
@@ -38,13 +44,14 @@ public class FilmService {
 		
 		if(filmForm.getSpecialFeatures() == null) {
 			film.setSpecialFeatures(null);
-		}else {
-			//specialFeatures 배열 -> ,문자열
+		} else {
+			// specialFeatures 배열 -> ,문자열
 			String specialFeatures = filmForm.getSpecialFeatures().get(0);
 			
-			for(int i =1 ;  i < filmForm.getSpecialFeatures().size(); i++) {
+			for(int i=1; i < filmForm.getSpecialFeatures().size(); i++) {
 				specialFeatures += "," + filmForm.getSpecialFeatures().get(i);
 			}
+			
 			film.setSpecialFeatures(specialFeatures);
 		}
 		

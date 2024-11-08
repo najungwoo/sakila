@@ -61,7 +61,7 @@
 					actor 수정
 				</a>
 				&nbsp;
-				<a href="${pageContext.request.contextPath}/on/reomveActor?actorId=${actor.actorId}">
+				<a href="${pageContext.request.contextPath}/on/removeActor?actorId=${actor.actorId}">
 					actor 삭제
 				</a>
 			</div>

@@ -23,7 +23,6 @@ public interface ActorMapper {
 	
 	int insertActor(Actor actor);
 
-
     int selectActorCount(String sarchWord); // 전체 배우 수 조회 메서드
 
 }
