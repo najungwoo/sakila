@@ -12,6 +12,7 @@ import com.example.sakila.vo.Store;
 @Service
 @Transactional
 public class StoreService {
+	
 	@Autowired StoreMapper storeMapper;
 	
 	public List<Store> getStoreList() {
