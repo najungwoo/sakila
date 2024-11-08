@@ -23,79 +23,96 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-
 public class ActorController {
-	@Autowired ActorService actorService;
-	@Autowired ActorFileService actorFileService;
-	@Autowired FilmService filmService;
-	
+	@Autowired
+	ActorService actorService;
+	@Autowired
+	ActorFileService actorFileService;
+	@Autowired
+	FilmService filmService;
+
+	@GetMapping("/on/removeActor")
+	public String removeActor(HttpSession session, @RequestParam int actorId) {
+		String path = session.getServletContext().getRealPath("/upload/");
+		actorService.removeActor(actorId, path);
+		return "redirect:/on/actorList";
+	}
+
+	@PostMapping("/on/modifyActor")
+	public String modifyActor(Actor actor) {
+		log.debug(actor.toString());
+
+		int row = actorService.modifyActor(actor);
+
+		return "redirect:/on/actorOne?actorId=" + actor.getActorId();
+	}
+
+	@GetMapping("/on/modifyActor")
+	public String modifyActor(Model model, @RequestParam int actorId) {
+		Actor actor = actorService.getActorOne(actorId);
+		model.addAttribute("actor", actor);
+		return "on/modifyActor";
+	}
+
 	@GetMapping("/on/actorOne")
-	public String actorOne(Model model
-							, @RequestParam int actorId) {
+	public String actorOne(Model model, @RequestParam int actorId) {
 		Actor actor = actorService.getActorOne(actorId);
 		List<ActorFile> actorFileList = actorFileService.getActorFileListByActor(actorId);
 		List<Film> filmList = filmService.getFilmTitleListByActor(actorId);
 		log.debug(actor.toString());
 		log.debug(actorFileList.toString());
 		log.debug(filmList.toString());
-		
+
 		model.addAttribute("actor", actor);
 		model.addAttribute("actorFileList", actorFileList);
 		model.addAttribute("filmList", filmList);
-		
+
 		return "on/actorOne";
 	}
-	
+
 	@GetMapping("/on/actorList")
-	public String actorList(Model model
-							, @RequestParam(defaultValue = "1") int currentPage
-							, @RequestParam(defaultValue = "10") int rowPerPage
-							, @RequestParam(required = false) String searchWord) {
-		log.debug("searchWord: "+ searchWord);
-		
+	public String actorList(Model model, @RequestParam(defaultValue = "1") int currentPage,
+			@RequestParam(defaultValue = "10") int rowPerPage, @RequestParam(required = false) String searchWord) {
+		log.debug("searchWord: " + searchWord);
+
 		int lastPage = actorService.getTotalCount(searchWord, rowPerPage);
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("lastPage", lastPage);
-		
-		
-	
+
 		// int lastPage = actorService.getTotalCount(rowPerPage, searchWord);
 		List<Actor> actorList = actorService.getActorList(currentPage, rowPerPage, searchWord);
 		model.addAttribute("actorList", actorList);
-		
+
 		return "on/actorList";
 	}
-	
+
 	@PostMapping("/on/addActor")
-	public String addActor(HttpSession session
-						, Model model
-						, ActorForm actorForm) { // input type="file"
-		
+	public String addActor(HttpSession session, Model model, ActorForm actorForm) { // input type="file"
+
 		List<MultipartFile> list = actorForm.getActorFile();
-		if(list != null && list.size() != 0) { // 첨부된 파일이 있다면
-			for(MultipartFile f : list) { // 이미지파일은 *.jpg or *.png 가능
-				if(f.getContentType().equals("image/jpeg") == false
+		if (list != null && list.size() != 0) { // 첨부된 파일이 있다면
+			for (MultipartFile f : list) { // 이미지파일은 *.jpg or *.png 가능
+				if (f.getContentType().equals("image/jpeg") == false
 						&& f.getContentType().equals("image/png") == false) {
 					model.addAttribute("msg", "이미지 파일만 입력이 가능합니다");
 					return "on/addActor";
 				}
 			}
 		}
-		
+
 		String path = session.getServletContext().getRealPath("/upload/");
 		log.debug(path);
-		
+
 		actorService.addActor(actorForm, path);
-		
+
 		return "redirect:/on/actorList";
-	}	
-	
+	}
+
 	@GetMapping("/on/addActor")
 	public String addActor() {
 		return "on/addActor";
 	}
-	
 
 }
