@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+
 public class ActorController {
 	@Autowired ActorService actorService;
 	@Autowired ActorFileService actorFileService;
