@@ -29,6 +29,21 @@ public class FilmController {
 	@Autowired LanguageService languageService;
 	@Autowired CategoryService categoryService;
 	
+	@GetMapping("/on/languageList")
+	public String languageList(Model model) {
+	    // languageList를 모델에 추가
+	    List<Language> languageList = languageService.getLanguageList();
+	    model.addAttribute("languageList", languageList);
+	    
+	    return "on/languageList"; // 뷰 이름 설정
+	}
+	
+	@GetMapping("/on/addLanguage")
+	public String addLanguage(Model model) {
+	    // 새로운 언어를 추가하는 페이지로 이동
+	    return "on/addLanguage"; // addLanguage.jsp 파일을 반환
+	}
+	
 	@GetMapping("/on/filmList")
 	public String filmList(Model model
 							, @RequestParam(required = false) Integer categoryId

@@ -64,6 +64,18 @@
 						<td>${f.rating}</td>
 					</tr>
 				</c:forEach>
+				  <nav>
+                    <ul class="pagination">
+                        <c:forEach var="i" begin="1" end="${lastPage}">
+                            <li class="page-item ${i == currentPage ? 'active' : ''}">
+          						  <a class="page-link" href="${pageContext.request.contextPath}/on/filmList?currentPage=${i}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">
+                                    ${i}
+                                </a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </nav>
+   
 			</table>
 		</div>
 	</div>
