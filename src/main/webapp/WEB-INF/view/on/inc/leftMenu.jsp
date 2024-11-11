@@ -35,7 +35,7 @@
 		::: 영화 관리 :::
 	</li>
 	<li class="list-group-item bg-light">
-		<a href="" class="btn">영화 리스트</a>
+		<a href="${pageContext.request.contextPath}/on/filmList" class="btn">필름 리스트</a>
 	</li>
 	<li class="list-group-item bg-light">
 		<a href="${pageContext.request.contextPath}/on/addFilm" class="btn">영화 추가</a>
