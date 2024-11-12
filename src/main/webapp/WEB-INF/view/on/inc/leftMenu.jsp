@@ -37,6 +37,13 @@
 			추가</a></li>
 
 	<li class="list-group-item bg-light fw-bold">::: 영화 관리 :::</li>
+	
+	<li class="list-group-item bg-light"><a
+		href="${pageContext.request.contextPath}/on/languageList" class="btn">카테고리
+			리스트</a></li>
+	<li class="list-group-item bg-light"><a
+		href="${pageContext.request.contextPath}/on/addLanguage" class="btn">카테고리
+			추가</a></li>
 
 	<li class="list-group-item bg-light"><a
 		href="${pageContext.request.contextPath}/on/languageList" class="btn">언어

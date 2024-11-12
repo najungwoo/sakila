@@ -1,115 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sakila.mapper.FilmMapper">
-	<!--  categoryId가 null, 0이 아닐때 -->
-	<select id="selectFilmListByCategory"
-			parameterType="Map"
-			resultType="Map">
-		SELECT 
-			f.film_id filmId
-			, f.title title
-			, f.release_year releaseYear
-			, f.rental_duration rentalDuration
-			, f.rental_rate rentalRate
-			, f.length length
-			, f.replacement_cost replacementCost
-			, f.rating rating
-			, fc.category_id categoryId	
+		<!-- POST : /on/modifyFilm  -->
+	<update id="updateFilm"
+			parameterType="com.example.sakila.vo.Film">
+		UPDATE film
+		<set>
+			<if test="title != null">
+				title = #{title}
+			</if>
+			<if test="description != null">
+				description = #{description}
+			</if>
+			<if test="releaseYear != 0">
+				release_year = #{releaseYear}
+			</if>
+			<if test="languageId != 0">
+				language_id = #{languageId}
+			</if>
+			<if test="originalLanguageId != 0">
+				original_language_id = #{originalLanguageId}
+			</if>
+			<if test="rentalDuration != 0">
+				rental_duration = #{rentalDuration}
+			</if>
+			<if test="rentalRate != 0">
+				rental_rate = #{rentalRate}
+			</if>
+			<if test="length != 0">
+				length = #{length}
+			</if>
+			<if test="replacementCost != 0">
+				replacement_cost = #{replacementCost}
+			</if>
+			<if test="rating != null">
+				rating = #{rating}
+			</if>
+			<if test="specialFeatures != null">
+				special_features = #{specialFeatures}
+			</if>
+		</set>
+		WHERE film_id = #{filmId}
+		</update>
+
+	<delete id="deleteFilmByKey" parameterType="Integer">
+		DELETE FROM file
+		WHERE film_id = #{film_id}
+
+	</delete>
+
+	<!-- categoryId가 null, 0이 아닐때 -->
+	<select id="selectFilmListByCategory" parameterType="Map"
+		resultType="Map">
+		SELECT
+		f.film_id filmId
+		, f.title title
+		, f.release_year releaseYear
+		, f.rental_duration rentalDuration
+		, f.rental_rate rentalRate
+		, f.length length
+		, f.replacement_cost replacementCost
+		, f.rating rating
+		, fc.category_id categoryId
 		FROM film f INNER JOIN film_category fc
 		ON f.film_id = fc.film_id
-		WHERE fc.category_id = #{categoryId}
+		WHERE
+		fc.category_id = #{categoryId}
 		ORDER BY f.film_id DESC
-		LIMIT #{beginRow}, #{rowPerPage}
+		LIMIT
+		#{beginRow}, #{rowPerPage}
 	</select>
-	
-	
-	<!--  categoryId가 null or 0 -->
-	<select id="selectFilmList"
-			parameterType="Map"
-			resultType="Map">
-		SELECT 
-			film_id filmId
-			, title title
-			, release_year releaseYear
-			, rental_duration rentalDuration
-			, rental_rate rentalRate
-			, length length
-			, replacement_cost replacementCost
-			, rating rating	
+
+
+	<!-- categoryId가 null or 0 -->
+	<select id="selectFilmList" parameterType="Map" resultType="Map">
+		SELECT
+		film_id filmId
+		, title title
+		, release_year releaseYear
+		, rental_duration rentalDuration
+		, rental_rate rentalRate
+		, length length
+		, replacement_cost replacementCost
+		, rating rating
 		FROM film
 		ORDER BY film_id DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 
-	<select id="selectFilmListByTitle"
-			parameterType="String"
-			resultType="com.example.sakila.vo.Film">
+	<select id="selectFilmListByTitle" parameterType="String"
+		resultType="com.example.sakila.vo.Film">
 		SELECT
-			film_id filmId
-			, title
+		film_id filmId
+		, title
 		FROM film
 		WHERE title LIKE CONCAT('%',#{searchTitle},'%')
 	</select>
-	
-	<insert id="insertFilm" parameterType="com.example.sakila.vo.Film">
+
+	<insert id="insertFilm"
+		parameterType="com.example.sakila.vo.Film">
 		INSERT INTO film(
-			title
-			, description
-			, release_year
-			, language_id
-			, original_language_id
-			, rental_duration
-			, rental_rate
-			, length
-			, replacement_cost
-			, rating
-			, special_features
+		title
+		, description
+		, release_year
+		, language_id
+		, original_language_id
+		, rental_duration
+		, rental_rate
+		, length
+		, replacement_cost
+		, rating
+		, special_features
 		) VALUES (
-			#{title}
-			, #{description}
-			, #{releaseYear}
-			, #{languageId}
-			, #{originalLanguageId}
-			, #{rentalDuration}
-			, #{rentalRate}
-			, #{length}
-			, #{replacementCost}
-			, #{rating}
-			, #{specialFeatures}
+		#{title}
+		, #{description}
+		, #{releaseYear}
+		, #{languageId}
+		, #{originalLanguageId}
+		, #{rentalDuration}
+		, #{rentalRate}
+		, #{length}
+		, #{replacementCost}
+		, #{rating}
+		, #{specialFeatures}
 		)
 	</insert>
 
-	<select id="selectFilmOne"
-			parameterType="int"
-			resultType="Map">
-		SELECT 
-			fi.film_id filmId
-			, fi.title title
-			, fi.description description
-			, fi.release_year releaseYear
-			, fi.rental_duration rentalDuration
-			, fi.rental_rate rentalRate
-			, fi.length length
-			, fi.replacement_cost replacementCost
-			, fi.rating rating
-			, fi.special_features specialFeatures
-			, fi.last_update lastUpdate
-			, fi.original_language_id originalLanguageId
-			, la.name language
+	<select id="selectFilmOne" parameterType="int" resultType="Map">
+		SELECT
+		fi.film_id filmId
+		, fi.title title
+		, fi.description description
+		, fi.release_year releaseYear
+		, fi.rental_duration rentalDuration
+		, fi.rental_rate rentalRate
+		, fi.length length
+		, fi.replacement_cost replacementCost
+		, fi.rating rating
+		, fi.special_features specialFeatures
+		, fi.last_update lastUpdate
+		, fi.original_language_id originalLanguageId
+		, la.name language
 		FROM film fi INNER JOIN language la
-		ON fi.language_id = la.language_id
+		ON fi.language_id
+		= la.language_id
 		WHERE fi.film_id = #{filmId}
 	</select>
-	
+
 	<!-- /on/actorOne -->
-	<select id="selectFilmTitleListByActor"
-			parameterType="int"
-			resultType="com.example.sakila.vo.Film">
-		SELECT 
-			f.film_id filmId
-			, f.title title
+	<select id="selectFilmTitleListByActor" parameterType="int"
+		resultType="com.example.sakila.vo.Film">
+		SELECT
+		f.film_id filmId
+		, f.title title
 		FROM film_actor fa INNER JOIN film f
-		ON fa.film_id = f.film_id
+		ON fa.film_id =
+		f.film_id
 		WHERE fa.actor_id = #{actorId}
 	</select>
 </mapper>

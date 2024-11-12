@@ -8,9 +8,9 @@ public class Film {
 	private String title; // 초록키
 	private String description; // NULL
 	private Integer releaseYear; // NULL
-	private int languageId; // FK
+	private Integer languageId; // FK
 	private Integer originalLanguageId; // FK 기본값 NULL
-	private int rentalDuration;
+	private Integer rentalDuration;
 	private double rentalRate;
 	private Integer length; // 기본값 NULL
 	private double replacementCost;
