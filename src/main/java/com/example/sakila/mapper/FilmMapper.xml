@@ -12,25 +12,25 @@
 			<if test="description != null">
 				description = #{description}
 			</if>
-			<if test="releaseYear != 0">
+			<if test="releaseYear != null">
 				release_year = #{releaseYear}
 			</if>
-			<if test="languageId != 0">
+			<if test="languageId != null">
 				language_id = #{languageId}
 			</if>
-			<if test="originalLanguageId != 0">
+			<if test="originalLanguageId != null">
 				original_language_id = #{originalLanguageId}
 			</if>
-			<if test="rentalDuration != 0">
+			<if test="rentalDuration != null">
 				rental_duration = #{rentalDuration}
 			</if>
-			<if test="rentalRate != 0">
+			<if test="rentalRate != null">
 				rental_rate = #{rentalRate}
 			</if>
-			<if test="length != 0">
+			<if test="length != null">
 				length = #{length}
 			</if>
-			<if test="replacementCost != 0">
+			<if test="replacementCost != null">
 				replacement_cost = #{replacementCost}
 			</if>
 			<if test="rating != null">
