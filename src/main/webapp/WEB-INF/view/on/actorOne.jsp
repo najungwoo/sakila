@@ -20,7 +20,7 @@
 		
 		<!-- ● 
 			● 1) actor 상세
-			1-1) actor 수정 - /on/modifyActor
+			● 1-1) actor 수정 - /on/modifyActor
 			1-2) actor 삭제 - /on/removeActor (actor_file삭제 + film_actor삭제 + actor삭제)
 			
 			● 2) actor_file 리스트
@@ -116,7 +116,7 @@
 					</form>
 					
 					<form id="formAddFilm" method="post"
-						action="${pageContext.request.contextPath}/on/addFilmByActor">
+						action="${pageContext.request.contextPath}/on/addFilmActorByActor">
 						<input type="hidden" name="actorId" value="${actor.actorId}">
 						<select size="5" name="filmId">
 							<c:forEach var="sf" items="${searchFilmList}">
@@ -136,7 +136,7 @@
 							${f.title}
 						</a>
 						&nbsp;
-						<a href="${pageContext.request.contextPath}/on/removeFilmActor?filmId=${f.filmId}&actorId=${actor.actorId}" 
+						<a href="${pageContext.request.contextPath}/on/removeFilmActorByActor?filmId=${f.filmId}&actorId=${actor.actorId}" 
 							class="btn btn-danger">flim_actor에서 삭제</a>
 						<!-- 삭제시 f.filmId & actor.actorId 필요 -->
 					</div>

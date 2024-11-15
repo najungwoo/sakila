@@ -78,8 +78,8 @@ public class FilmController {
 	@GetMapping("/on/filmList")
 	public String filmList(Model model
 							, @RequestParam(required = false) Integer categoryId
-							, @RequestParam(defaultValue = "1") int currentPage
-							, @RequestParam(defaultValue = "10") int rowPerPage) {
+							, @RequestParam(defaultValue = "1") Integer currentPage
+							, @RequestParam(defaultValue = "10") Integer rowPerPage) {
 		log.debug("categoryId: "+categoryId);
 		log.debug("currentPage: "+currentPage);
 		log.debug("rowPerPage: "+rowPerPage);
@@ -111,14 +111,23 @@ public class FilmController {
 		return "redirect:/on/filmList";
 	}
 	
+	@GetMapping("/on/addFilm")
+	public String addFilm(Model model) {
+		// languageList
+		List<Language> languageList = languageService.getLanguageList();
+		log.debug(languageList.toString());
+		model.addAttribute("languageList", languageList);
+		return "on/addFilm";
+	}
+	
 	@GetMapping("/on/filmOne")
 	public String filmOne(Model model
-						, @RequestParam int filmId
+						, @RequestParam Integer filmId
 						, @RequestParam(required = false) String searchName) {
 		/*
 		 * + 1) 현재필름 정보
 		 * + 2) 전체카테고리 리스트
-		 * 3) 현재필름의 카테고리 리스트
+		 * + 3) 현재필름의 카테고리 리스트
 		 * 4) 검색 배우 리스트(searchName이 null아 아닐때)
 		 * + 5) 현재필름의 배우 리스트
 		 */
@@ -131,6 +140,11 @@ public class FilmController {
 		// 3)
 		List<Map<String, Object>> filmCategoryList 
 				= filmCategoryService.getFilmCategoryListByFilm(filmId);
+		// 4)
+				if(searchName != null) { // 배우이름검색 버턴요청으로 왔다면
+					List<Actor> searchActorList = actorService.getActorListByActor(searchName);
+					model.addAttribute("searchActorList", searchActorList);
+			}
 		
 		// 5)
 		List<Actor> actorList = actorService.getActorListByFilm(filmId);
