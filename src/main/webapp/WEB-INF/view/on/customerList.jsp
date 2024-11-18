@@ -80,7 +80,7 @@
 			<div>
 				<form>
 					<input type="text">
-					<button type="button">이름검색</buttton>
+					<button type="button" id="btnSearchTitle">이름 검색</button>
 				</form>
 			</div>
 		</div>
