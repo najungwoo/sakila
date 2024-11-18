@@ -12,7 +12,7 @@
 		href="${pageContext.request.contextPath}/on/logout" class="btn">로그아웃</a>
 	</li>
 
-	<li class="list-group-item bg-light fw-bold">::: 지점 관리 :::</li>
+	<li class="list-group-item bg-light fw-bold">::: 지점&인벤토리관리 :::</li>
 	<li class="list-group-item bg-light"><a
 		href="${pageContext.request.contextPath}/on/storeList" class="btn"
 		class="btn">지점 리스트</a> <!-- 
@@ -27,11 +27,7 @@
 		GET - /on/addStore - StoreController.addStore() : staffList 모델추가 - addStore.jsp
 		post - /on/addStore - StoreController.addStore(Store) - 
 	 -->
-	
-	<li class="list-group-item bg-light fw-bold">		
-		<a href="${pageContext.request.contextPath}/on/addInventory" class="btn">인벤토리 추가</a>
-	</li>
-	<!-- ------------------------------------------------------------------------ -->
+		<!-- ------------------------------------------------------------------------ -->
 	<li class="list-group-item bg-light fw-bold">:::STAFF 관리:::</li>
 	<li class="list-group-item bg-light">
 	<a	href="${pageContext.request.contextPath}/on/staffList" class="btn">스탭
@@ -64,10 +60,10 @@
 
 
 	<li class="list-group-item bg-light fw-bold">::: 고객 관리 :::</li>
-	<li class="list-group-item bg-light"><a href="" class="btn">고객
-			리스트</a></li>
-	<li class="list-group-item bg-light"><a href="" class="btn">고객
-			추가</a></li>
+	<li class="list-group-item bg-light">
+	<a href="${pageContext.request.contextPath}/on/customerList" class="btn">고객리스트</a></li>
+	<li class="list-group-item bg-light">
+	<a href="${pageContext.request.contextPath}/on/addCustomer" class="btn">고객추가</a></li>
 
 	<li class="list-group-item bg-light fw-bold">::: 배우 관리 :::</li>
 	<li class="list-group-item bg-light"><a
